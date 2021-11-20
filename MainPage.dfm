@@ -22,10 +22,9 @@ object Form1: TForm1
   end
   object DBGrid1: TDBGrid
     Left = 0
-    Top = 167
-    Width = 757
-    Height = 339
-    Align = alBottom
+    Top = 200
+    Width = 305
+    Height = 306
     DataSource = DataSource1
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
     ReadOnly = True
@@ -35,6 +34,7 @@ object Form1: TForm1
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
+    Visible = False
     Columns = <
       item
         Expanded = False
@@ -144,6 +144,7 @@ object Form1: TForm1
     Width = 273
     Height = 21
     TabOrder = 2
+    OnChange = Edit1Change
   end
   object Button1: TButton
     Left = 384
@@ -186,7 +187,24 @@ object Form1: TForm1
     Height = 25
     Caption = 'Button2'
     TabOrder = 7
-    OnClick = Button2Click
+  end
+  object DBEdit1: TDBEdit
+    Left = 328
+    Top = 144
+    Width = 121
+    Height = 21
+    DataField = 'name'
+    DataSource = DataSource1
+    TabOrder = 8
+    Visible = False
+  end
+  object ListBox1: TListBox
+    Left = 456
+    Top = 200
+    Width = 289
+    Height = 161
+    ItemHeight = 13
+    TabOrder = 9
   end
   object RESTClient1: TRESTClient
     Accept = 'application/json, text/plain; q=0.9, text/html;q=0.8,'
@@ -221,6 +239,16 @@ object Form1: TForm1
       FieldName = 'Content'
       Control = Memo1
       Track = False
+    end
+    object LinkFillControlToField1: TLinkFillControlToField
+      Category = 'Quick Bindings'
+      Track = True
+      FillDataSource = BindSourceDB2
+      FillDisplayFieldName = 'name'
+      AutoFill = True
+      FillExpressions = <>
+      FillHeaderExpressions = <>
+      FillBreakGroups = <>
     end
   end
   object FDMemTable1: TFDMemTable
@@ -331,5 +359,17 @@ object Form1: TForm1
     DataSet = FDMemTable1
     Left = 496
     Top = 64
+  end
+  object BindSourceDB1: TBindSourceDB
+    DataSource = DataSource1
+    ScopeMappings = <>
+    Left = 16
+    Top = 64
+  end
+  object BindSourceDB2: TBindSourceDB
+    DataSet = FDMemTable1
+    ScopeMappings = <>
+    Left = 376
+    Top = 256
   end
 end

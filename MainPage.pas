@@ -10,7 +10,7 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.Grids, Vcl.DBGrids,
-  Vcl.StdCtrls, REST.Response.Adapter;
+  Vcl.StdCtrls, REST.Response.Adapter, Data.Bind.DBScope, Vcl.DBCtrls, Vcl.Mask;
 
 type
   TForm1 = class(TForm)
@@ -30,12 +30,17 @@ type
     Button4: TButton;
     Button5: TButton;
     Button2: TButton;
+    BindSourceDB1: TBindSourceDB;
+    BindSourceDB2: TBindSourceDB;
+    LinkFillControlToField1: TLinkFillControlToField;
+    DBEdit1: TDBEdit;
+    ListBox1: TListBox;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
+    procedure Edit1Change(Sender: TObject);
   private
     { Private declarations }
   public
@@ -52,34 +57,8 @@ begin
   page := 1;
   RESTRequest1.Resource := 'api/people/?page=' +  IntToStr(page);
   RESTRequest1.Execute;
+  listbox1.Items.Add(FDMemTable1.FieldByName('name').AsString);
 end;
-procedure TForm1.Button2Click(Sender: TObject);
-var
-  retorno:bool;
-begin
-  retorno:=false;
-  page:=1;
-  repeat
-      retorno:=FDMemTable1.Locate('name',Edit1.Text,[ loPartialKey ,loCaseInsensitive	]);
-      if(retorno=false)then
-        retorno:=FDMemTable1.Locate('gender',Edit1.Text,[ loPartialKey,loCaseInsensitive	]);
-      if(retorno=false)then
-      begin
-        try
-          RESTRequest1.Resource := 'api/people/?page=' + IntToStr(page);
-          RESTRequest1.Execute;
-          page := page+1;
-        Except
-          page := page-1;
-          RESTRequest1.Resource := 'api/people/?page=' + IntToStr(page);
-          RESTRequest1.Execute;
-          retorno:=true;
-        end;
-      end;
-  until(retorno=true);
-end;
-
-
 procedure TForm1.Button3Click(Sender: TObject);
 begin
   page := 1;
@@ -98,6 +77,41 @@ begin
   RESTRequest1.Resource := 'api/people/?page=' +  IntToStr(page);
   RESTRequest1.Execute;
 end;
+procedure TForm1.Edit1Change(Sender: TObject);
+var
+  retorno:bool;
+begin
+  retorno:=false;
+  page:=1;
+  listbox1.Items.Clear;
+  if(edit1.Text<>'')then
+  repeat
+      retorno:=FDMemTable1.Locate('name',Edit1.Text,[ loPartialKey ,loCaseInsensitive	]);
+      if(retorno=false)then
+        retorno:=FDMemTable1.Locate('gender',Edit1.Text,[ loPartialKey,loCaseInsensitive	]);
+      if(retorno=true)then
+      begin
+        listbox1.Items.Add(DBEdit1.Text);
+        DBEdit1.Clear;
+        retorno:=false;
+      end;
+      if(retorno=false)then
+      begin
+        try
+          RESTRequest1.Resource := 'api/people/?page=' + IntToStr(page);
+          RESTRequest1.Execute;
+          page := page+1;
+        Except
+          page := page-1;
+          RESTRequest1.Resource := 'api/people/?page=' + IntToStr(page);
+          RESTRequest1.Execute;
+          retorno:=true;
+        end;
+      end;
+  until(retorno=true);
+
+end;
+
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   page := 1;

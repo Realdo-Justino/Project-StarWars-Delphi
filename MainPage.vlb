@@ -1,46 +1,66 @@
 ﻿[Edit1]
-Coordinates=295,446,44,58
+Coordinates=295,446,40,51
 
 [RESTResponseDataSetAdapter1]
-Coordinates=391,1,205,36
+Coordinates=391,1,174,33
 
 [Button4]
-Coordinates=450,446,59,58
+Coordinates=450,446,53,51
 
 [FDMemTable1]
-Coordinates=10,10,99,410
+Coordinates=10,10,84,33
+Visible=False
 
 [RESTResponse1]
-Coordinates=135,10,113,366
+Coordinates=180,0,96,303
 
 [RESTRequest1]
-Coordinates=418,10,103,102
+Coordinates=418,10,88,87
 
 [RESTClient1]
-Coordinates=10,446,89,80
+Coordinates=10,446,76,69
 
 [DBGrid1]
-Coordinates=10,552,64,36
+Coordinates=10,552,56,33
 Visible=True
 
 [Button1]
-Coordinates=210,446,59,58
+Coordinates=210,446,53,51
 
 [BindingsList1]
-Coordinates=250,661,91,36
+Coordinates=250,661,82,33
 
 [DataSource1]
-Coordinates=118,1,89,36
+Coordinates=478,41,77,33
+Visible=True
 
 [Button5]
-Coordinates=365,446,59,58
+Coordinates=365,446,53,51
 
 [Button3]
-Coordinates=535,446,59,58
+Coordinates=535,446,53,51
 
 [Memo1]
-Coordinates=328,164,64,58
+Coordinates=328,164,53,51
 
 [Button2]
-Coordinates=125,446,59,58
+Coordinates=125,446,53,51
+
+[BindSourceDB1]
+Coordinates=391,31,92,357
+
+[BindSourceDB2]
+Coordinates=10,10,92,357
+
+[]
+Coordinates=349,241,72,51
+Visible=True
+ExplicitSubNodes=Field.AsString
+
+[DBEdit1]
+Coordinates=331,56,54,33
+
+[ListBox1]
+Coordinates=121,322,84,105
+Visible=True
 
