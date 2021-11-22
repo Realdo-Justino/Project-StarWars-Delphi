@@ -35,11 +35,9 @@ type
     LinkFillControlToField1: TLinkFillControlToField;
     DBEdit1: TDBEdit;
     ListBox1: TListBox;
-    procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure Button5Click(Sender: TObject);
-    procedure Button3Click(Sender: TObject);
-    procedure Button4Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure Edit1Change(Sender: TObject);
   private
     { Private declarations }
@@ -52,64 +50,77 @@ var
   page : Integer;
 implementation
 {$R *.dfm}
-procedure TForm1.Button1Click(Sender: TObject);
-begin
-  page := 1;
-  RESTRequest1.Resource := 'api/people/?page=' +  IntToStr(page);
-  RESTRequest1.Execute;
-  listbox1.Items.Add(FDMemTable1.FieldByName('name').AsString);
-end;
-procedure TForm1.Button3Click(Sender: TObject);
-begin
-  page := 1;
-  RESTRequest1.Resource := 'api/people/?page=' + IntToStr(page);
-  RESTRequest1.Execute;
-end;
-procedure TForm1.Button4Click(Sender: TObject);
-begin
-  page := page - 1;
-  RESTRequest1.Resource := 'api/people/?page=' +  IntToStr(page);
-  RESTRequest1.Execute;
-end;
-procedure TForm1.Button5Click(Sender: TObject);
-begin
-  page := page + 1;
-  RESTRequest1.Resource := 'api/people/?page=' +  IntToStr(page);
-  RESTRequest1.Execute;
-end;
-procedure TForm1.Edit1Change(Sender: TObject);
+procedure TForm1.Button2Click(Sender: TObject);
 var
   retorno:bool;
+  valor:string;
 begin
   retorno:=false;
   page:=1;
+  RESTRequest1.Resource := 'api/people/?page=' +  IntToStr(page);
+  RESTRequest1.Execute;
   listbox1.Items.Clear;
   if(edit1.Text<>'')then
   repeat
-      retorno:=FDMemTable1.Locate('name',Edit1.Text,[ loPartialKey ,loCaseInsensitive	]);
-      if(retorno=false)then
-        retorno:=FDMemTable1.Locate('gender',Edit1.Text,[ loPartialKey,loCaseInsensitive	]);
-      if(retorno=true)then
-      begin
-        listbox1.Items.Add(DBEdit1.Text);
-        DBEdit1.Clear;
-        retorno:=false;
-      end;
-      if(retorno=false)then
-      begin
+        Fdmemtable1. FIRST;
+        While not Fdmemtable1. EOF DO
+        BEGIN
+          valor:=Fdmemtable1.Fields.FieldByName('name').AsString;
+          if(valor=Edit1.Text)then
+            listbox1.Items.Add(DBEdit1.Text)
+          else
+          begin
+            valor:=Fdmemtable1.Fields.FieldByName('gender').AsString;
+            if(valor=Edit1.Text)then
+              listbox1.Items.Add(DBEdit1.Text);
+          end;
+          DBEdit1.Clear;
+          Fdmemtable1.Next;
+        END;
         try
+          page := page+1;
           RESTRequest1.Resource := 'api/people/?page=' + IntToStr(page);
           RESTRequest1.Execute;
-          page := page+1;
         Except
           page := page-1;
           RESTRequest1.Resource := 'api/people/?page=' + IntToStr(page);
           RESTRequest1.Execute;
           retorno:=true;
         end;
-      end;
   until(retorno=true);
 
+end;
+
+procedure TForm1.Edit1Change(Sender: TObject);
+var
+  retorno:bool;
+  valor:string;
+begin
+  if(Edit1.Text='')then
+  begin
+    page := 1;
+    listbox1.Items.Clear;
+    RESTRequest1.Resource := 'api/people/?page=' +  IntToStr(page);
+    RESTRequest1.Execute;
+    retorno:=false;
+    Fdmemtable1. FIRST;
+     repeat
+          While not Fdmemtable1. EOF DO
+          BEGIN
+            valor:=Fdmemtable1.Fields.FieldByName('name').AsString;
+            listbox1.Items.Add(DBEdit1.Text);
+            DBEdit1.Clear;
+            Fdmemtable1.Next;
+          END;
+          try
+            page := page+1;
+            RESTRequest1.Resource := 'api/people/?page=' + IntToStr(page);
+            RESTRequest1.Execute;
+          Except
+            retorno:=true;
+          end;
+     until(retorno=true);
+  end;
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
@@ -118,4 +129,34 @@ begin
   RESTRequest1.Resource := 'api/people/?page=' +  IntToStr(page);
   RESTRequest1.Execute;
 end;
+
+procedure TForm1.FormShow(Sender: TObject);
+var
+  retorno:bool;
+  valor:string;
+begin
+  page := 1;
+  listbox1.Items.Clear;
+  RESTRequest1.Resource := 'api/people/?page=' +  IntToStr(page);
+  RESTRequest1.Execute;
+  retorno:=false;
+  Fdmemtable1. FIRST;
+   repeat
+        While not Fdmemtable1. EOF DO
+        BEGIN
+          valor:=Fdmemtable1.Fields.FieldByName('name').AsString;
+          listbox1.Items.Add(DBEdit1.Text);
+          DBEdit1.Clear;
+          Fdmemtable1.Next;
+        END;
+        try
+          page := page+1;
+          RESTRequest1.Resource := 'api/people/?page=' + IntToStr(page);
+          RESTRequest1.Execute;
+        Except
+          retorno:=true;
+        end;
+   until(retorno=true);
+end;
+
 end.

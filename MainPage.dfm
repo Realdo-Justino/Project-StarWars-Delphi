@@ -11,6 +11,7 @@ object Form1: TForm1
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Memo1: TMemo
@@ -19,6 +20,7 @@ object Form1: TForm1
     Width = 191
     Height = 23
     TabOrder = 0
+    Visible = False
   end
   object DBGrid1: TDBGrid
     Left = 0
@@ -147,13 +149,13 @@ object Form1: TForm1
     OnChange = Edit1Change
   end
   object Button1: TButton
-    Left = 384
+    Left = 552
     Top = 8
     Width = 81
     Height = 21
     Caption = 'Button1'
     TabOrder = 3
-    OnClick = Button1Click
+    Visible = False
   end
   object Button3: TButton
     Left = 32
@@ -162,6 +164,8 @@ object Form1: TForm1
     Height = 25
     Caption = '|<'
     TabOrder = 4
+    Visible = False
+    WordWrap = True
   end
   object Button4: TButton
     Left = 113
@@ -170,6 +174,7 @@ object Form1: TForm1
     Height = 25
     Caption = '<<'
     TabOrder = 5
+    Visible = False
   end
   object Button5: TButton
     Left = 194
@@ -178,15 +183,16 @@ object Form1: TForm1
     Height = 25
     Caption = '>>'
     TabOrder = 6
-    OnClick = Button5Click
+    Visible = False
   end
   object Button2: TButton
-    Left = 504
-    Top = 24
+    Left = 399
+    Top = 8
     Width = 75
     Height = 25
-    Caption = 'Button2'
+    Caption = 'Pesquise'
     TabOrder = 7
+    OnClick = Button2Click
   end
   object DBEdit1: TDBEdit
     Left = 328
@@ -199,10 +205,11 @@ object Form1: TForm1
     Visible = False
   end
   object ListBox1: TListBox
-    Left = 456
-    Top = 200
-    Width = 289
-    Height = 161
+    Left = 0
+    Top = 352
+    Width = 757
+    Height = 154
+    Align = alBottom
     ItemHeight = 13
     TabOrder = 9
   end
