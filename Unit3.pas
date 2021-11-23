@@ -1,4 +1,4 @@
-unit MainPage;
+unit Unit3;
 
 interface
 
@@ -13,7 +13,7 @@ uses
   Vcl.StdCtrls, REST.Response.Adapter, Data.Bind.DBScope, Vcl.DBCtrls, Vcl.Mask;
 
 type
-  TForm1 = class(TForm)
+  TForm3 = class(TForm)
     RESTClient1: TRESTClient;
     RESTRequest1: TRESTRequest;
     RESTResponse1: TRESTResponse;
@@ -37,14 +37,12 @@ type
     ListBox1: TListBox;
     LinkListControlToField1: TLinkListControlToField;
     Button6: TButton;
-    Button7: TButton;
     procedure FormCreate(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Edit1Change(Sender: TObject);
     procedure ListBox1Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
-    procedure Button7Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -52,20 +50,20 @@ type
   end;
 
 var
-  Form1: TForm1;
+  Form3: TForm3;
   page : Integer;
 implementation
 {$R *.dfm}
 
-uses DetalhePessoasForm, Unit3, Unit5;
-procedure TForm1.Button2Click(Sender: TObject);
+uses DetalhePessoasForm, DetalhePlanetasForm;
+procedure TForm3.Button2Click(Sender: TObject);
 var
   retorno:bool;
   valor:string;
 begin
   retorno:=false;
   page:=1;
-  RESTRequest1.Resource := 'api/people/?page=' +  IntToStr(page);
+  RESTRequest1.Resource := 'api/planets/?page=' +  IntToStr(page);
   RESTRequest1.Execute;
   listbox1.Items.Clear;
   if(edit1.Text<>'')then
@@ -78,20 +76,26 @@ begin
             listbox1.Items.Add(DBEdit1.Text)
           else
           begin
-            valor:=Fdmemtable1.Fields.FieldByName('gender').AsString;
+            valor:=Fdmemtable1.Fields.FieldByName('population').AsString;
             if(valor=Edit1.Text)then
-              listbox1.Items.Add(DBEdit1.Text);
+              listbox1.Items.Add(DBEdit1.Text)
+              else
+              begin
+                valor:=Fdmemtable1.Fields.FieldByName('climate').AsString;
+                if(valor=Edit1.Text)then
+                  listbox1.Items.Add(DBEdit1.Text);
+              end;
           end;
           DBEdit1.Clear;
           Fdmemtable1.Next;
         END;
         try
           page := page+1;
-          RESTRequest1.Resource := 'api/people/?page=' + IntToStr(page);
+          RESTRequest1.Resource := 'api/planets/?page=' + IntToStr(page);
           RESTRequest1.Execute;
         Except
           page := page-1;
-          RESTRequest1.Resource := 'api/people/?page=' + IntToStr(page);
+          RESTRequest1.Resource := 'api/planets/?page=' + IntToStr(page);
           RESTRequest1.Execute;
           retorno:=true;
         end;
@@ -99,66 +103,15 @@ begin
 
 end;
 
-procedure TForm1.Button6Click(Sender: TObject);
-begin
-  Form3 := Unit3.TForm3.Create(nil);
-  Form3.Show;
-end;
-
-procedure TForm1.Button7Click(Sender: TObject);
-begin
-  Form5 := TForm5.Create(nil);
-  Form5.Show;
-end;
-
-procedure TForm1.Edit1Change(Sender: TObject);
-var
+procedure TForm3.Button6Click(Sender: TObject);
+{var
   retorno:bool;
-  valor:string;
-begin
-  if(Edit1.Text='')then
-  begin
-    page := 1;
-    listbox1.Items.Clear;
-    RESTRequest1.Resource := 'api/people/?page=' +  IntToStr(page);
-    RESTRequest1.Execute;
-    retorno:=false;
-    Fdmemtable1. FIRST;
-     repeat
-          While not Fdmemtable1. EOF DO
-          BEGIN
-            valor:=Fdmemtable1.Fields.FieldByName('name').AsString;
-            listbox1.Items.Add(DBEdit1.Text);
-            DBEdit1.Clear;
-            Fdmemtable1.Next;
-          END;
-          try
-            page := page+1;
-            RESTRequest1.Resource := 'api/people/?page=' + IntToStr(page);
-            RESTRequest1.Execute;
-          Except
-            retorno:=true;
-          end;
-     until(retorno=true);
-  end;
-end;
-
-procedure TForm1.FormCreate(Sender: TObject);
-begin
-  page := 1;
-  RESTRequest1.Resource := 'api/people/?page=' +  IntToStr(page);
-  RESTRequest1.Execute;
-end;
-
-procedure TForm1.FormShow(Sender: TObject);
-var
-  retorno:bool;
-  valor:string;
-begin
+  valor:string; }
+begin  {
   page := 1;
   listbox1.Items.Clear;
 
-  RESTRequest1.Resource := 'api/people/?page=' +  IntToStr(page);
+  RESTRequest1.Resource := 'api/planets/?page=' +  IntToStr(page);
   RESTRequest1.Execute;
   retorno:=false;
   Fdmemtable1. FIRST;
@@ -172,7 +125,69 @@ begin
         END;
         try
           page := page+1;
-          RESTRequest1.Resource := 'api/people/?page=' + IntToStr(page);
+          RESTRequest1.Resource := 'api/planets/?page=' + IntToStr(page);
+          RESTRequest1.Execute;
+        Except
+          retorno:=true;
+        end;
+   until(retorno=true);}
+end;
+
+procedure TForm3.Edit1Change(Sender: TObject);
+var
+  retorno:bool;
+  valor:string;
+begin
+  if(Edit1.Text='')then
+  begin
+    page := 1;
+    listbox1.Items.Clear;
+    RESTRequest1.Resource := 'api/planets/?page=' +  IntToStr(page);
+    RESTRequest1.Execute;
+    retorno:=false;
+    Fdmemtable1. FIRST;
+     repeat
+          While not Fdmemtable1. EOF DO
+          BEGIN
+            valor:=Fdmemtable1.Fields.FieldByName('name').AsString;
+            listbox1.Items.Add(DBEdit1.Text);
+            DBEdit1.Clear;
+            Fdmemtable1.Next;
+          END;
+          try
+            page := page+1;
+            RESTRequest1.Resource := 'api/planets/?page=' + IntToStr(page);
+            RESTRequest1.Execute;
+          Except
+            retorno:=true;
+          end;
+     until(retorno=true);
+  end;
+end;
+
+procedure TForm3.FormCreate(Sender: TObject);
+var
+  retorno:bool;
+  valor:string;
+begin
+  page := 1;
+  listbox1.Items.Clear;
+
+  RESTRequest1.Resource := 'api/planets/?page=' +  IntToStr(page);
+  RESTRequest1.Execute;
+  retorno:=false;
+  Fdmemtable1. FIRST;
+   repeat
+        While not Fdmemtable1. EOF DO
+        BEGIN
+          valor:=Fdmemtable1.Fields.FieldByName('name').AsString;
+          listbox1.Items.Add(DBEdit1.Text);
+          DBEdit1.Clear;
+          Fdmemtable1.Next;
+        END;
+        try
+          page := page+1;
+          RESTRequest1.Resource := 'api/planets/?page=' + IntToStr(page);
           RESTRequest1.Execute;
         Except
           retorno:=true;
@@ -180,13 +195,43 @@ begin
    until(retorno=true);
 end;
 
-procedure TForm1.ListBox1Click(Sender: TObject);
+procedure TForm3.FormShow(Sender: TObject);
+var
+  retorno:bool;
+  valor:string;
+begin
+  page := 1;
+  listbox1.Items.Clear;
+
+  RESTRequest1.Resource := 'api/planets/?page=' +  IntToStr(page);
+  RESTRequest1.Execute;
+  retorno:=false;
+  Fdmemtable1. FIRST;
+   repeat
+        While not Fdmemtable1. EOF DO
+        BEGIN
+          valor:=Fdmemtable1.Fields.FieldByName('name').AsString;
+          listbox1.Items.Add(DBEdit1.Text);
+          DBEdit1.Clear;
+          Fdmemtable1.Next;
+        END;
+        try
+          page := page+1;
+          RESTRequest1.Resource := 'api/planets/?page=' + IntToStr(page);
+          RESTRequest1.Execute;
+        Except
+          retorno:=true;
+        end;
+   until(retorno=true);
+end;
+
+procedure TForm3.ListBox1Click(Sender: TObject);
 var
   Selected,valor: string;
   retorno:bool;
 begin
   Selected := ListBox1.Items[ListBox1.ItemIndex];
-  RESTRequest1.Resource := 'api/people/?page=' +  IntToStr(1);
+  RESTRequest1.Resource := 'api/planets/?page=' +  IntToStr(1);
   RESTRequest1.Execute;
   Fdmemtable1. FIRST;
   retorno:=false;
@@ -199,7 +244,7 @@ begin
           Except
             try
               page := page+1;
-              RESTRequest1.Resource := 'api/people/?page=' + IntToStr(page);
+              RESTRequest1.Resource := 'api/planets/?page=' + IntToStr(page);
               RESTRequest1.Execute;
             Except
               retorno:=true;
@@ -211,8 +256,8 @@ begin
             Fdmemtable1.Prior;
           end;
         END;
-  Form2 := TForm2.Create(nil);
-  Form2.Show;
+  Form4 := TForm4.Create(nil);
+  Form4.Show;
 end;
 
 end.

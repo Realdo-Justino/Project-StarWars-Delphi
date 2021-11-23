@@ -31,7 +31,7 @@ Coordinates=210,446,53,51
 Coordinates=250,661,82,33
 
 [DataSource1]
-Coordinates=478,41,77,33
+Coordinates=974,110,77,33
 Visible=True
 
 [Button5]
@@ -47,7 +47,7 @@ Coordinates=328,164,53,51
 Coordinates=125,446,53,51
 
 [BindSourceDB1]
-Coordinates=391,31,92,357
+Coordinates=887,100,92,357
 
 [BindSourceDB2]
 Coordinates=10,10,92,357
@@ -61,6 +61,61 @@ ExplicitSubNodes=Field.AsString
 Coordinates=331,56,54,33
 
 [ListBox1]
-Coordinates=121,322,84,105
+Coordinates=420,280,84,105
 Visible=True
+
+[Form2.BindSourceDB1]
+Coordinates=430,150,127,51
+
+[Button6]
+Coordinates=121,1,53,51
+
+[Form3.DataSource1]
+Visible=False
+Coordinates=353,234,111,33
+
+[Form3.FDMemTable1]
+Visible=False
+Coordinates=71,386,118,33
+
+[Form5.DataSource1]
+Visible=False
+Coordinates=353,404,111,33
+
+[Form5.FDMemTable1]
+Visible=False
+Coordinates=353,116,118,33
+
+[Form5.RESTResponse1]
+Coordinates=603,796,131,303
+
+[Form3.RESTRequest1]
+Coordinates=193,322,122,87
+
+[Form5.RESTRequest1]
+Coordinates=244,553,122,87
+
+[Form3.BindSourceDB1]
+Coordinates=373,516,127,321
+
+[Form3.BindSourceDB2]
+Coordinates=603,456,127,321
+
+[Form5.RESTClient1]
+Coordinates=125,553,110,69
+
+[Form5.BindSourceDB1]
+Coordinates=236,732,127,321
+
+[Form5.BindSourceDB2]
+Coordinates=107,732,127,321
+
+[Form3.RESTResponse1]
+Coordinates=464,1091,131,303
+
+[Form3.RESTClient1]
+Coordinates=603,1,110,69
+
+[Button7]
+Coordinates=121,71,53,51
 

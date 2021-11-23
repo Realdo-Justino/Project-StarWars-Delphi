@@ -1,7 +1,7 @@
-object Form1: TForm1
+object Form3: TForm3
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = 'Form3'
   ClientHeight = 506
   ClientWidth = 757
   Color = clBtnFace
@@ -11,6 +11,7 @@ object Form1: TForm1
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -37,108 +38,6 @@ object Form1: TForm1
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
     Visible = False
-    Columns = <
-      item
-        Expanded = False
-        FieldName = 'name'
-        Width = 100
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'birth_year'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'gender'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'films'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'name'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'height'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'mass'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'hair_color'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'skin_color'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'eye_color'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'birth_year'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'gender'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'homeworld'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'films'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'species'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'vehicles'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'starships'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'created'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'edited'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'url'
-        Visible = True
-      end>
   end
   object Edit1: TEdit
     Left = 88
@@ -146,7 +45,6 @@ object Form1: TForm1
     Width = 273
     Height = 21
     TabOrder = 2
-    OnChange = Edit1Change
   end
   object Button1: TButton
     Left = 552
@@ -213,24 +111,17 @@ object Form1: TForm1
     ItemHeight = 13
     TabOrder = 9
     OnClick = ListBox1Click
+    ExplicitTop = 352
   end
   object Button6: TButton
-    Left = 448
-    Top = 184
+    Left = 392
+    Top = 200
     Width = 75
     Height = 25
     Caption = 'Button6'
     TabOrder = 10
+    Visible = False
     OnClick = Button6Click
-  end
-  object Button7: TButton
-    Left = 448
-    Top = 215
-    Width = 75
-    Height = 25
-    Caption = 'Button7'
-    TabOrder = 11
-    OnClick = Button7Click
   end
   object RESTClient1: TRESTClient
     Accept = 'application/json, text/plain; q=0.9, text/html;q=0.8,'
@@ -243,9 +134,8 @@ object Form1: TForm1
   object RESTRequest1: TRESTRequest
     Client = RESTClient1
     Params = <>
-    Resource = 'api/people/?page=1'
+    Resource = 'api/planets/?page='
     Response = RESTResponse1
-    SynchronizedEvents = False
     Left = 152
     Top = 48
   end
@@ -294,62 +184,52 @@ object Form1: TForm1
         Size = 255
       end
       item
-        Name = 'height'
+        Name = 'rotation_period'
         DataType = ftWideString
         Size = 255
       end
       item
-        Name = 'mass'
+        Name = 'orbital_period'
         DataType = ftWideString
         Size = 255
       end
       item
-        Name = 'hair_color'
+        Name = 'diameter'
         DataType = ftWideString
         Size = 255
       end
       item
-        Name = 'skin_color'
+        Name = 'climate'
         DataType = ftWideString
         Size = 255
       end
       item
-        Name = 'eye_color'
+        Name = 'gravity'
         DataType = ftWideString
         Size = 255
       end
       item
-        Name = 'birth_year'
+        Name = 'terrain'
         DataType = ftWideString
         Size = 255
       end
       item
-        Name = 'gender'
+        Name = 'surface_water'
         DataType = ftWideString
         Size = 255
       end
       item
-        Name = 'homeworld'
+        Name = 'population'
+        DataType = ftWideString
+        Size = 255
+      end
+      item
+        Name = 'residents'
         DataType = ftWideString
         Size = 255
       end
       item
         Name = 'films'
-        DataType = ftWideString
-        Size = 255
-      end
-      item
-        Name = 'species'
-        DataType = ftWideString
-        Size = 255
-      end
-      item
-        Name = 'vehicles'
-        DataType = ftWideString
-        Size = 255
-      end
-      item
-        Name = 'starships'
         DataType = ftWideString
         Size = 255
       end
@@ -373,7 +253,9 @@ object Form1: TForm1
     FetchOptions.Mode = fmAll
     ResourceOptions.AssignedValues = [rvSilentMode]
     ResourceOptions.SilentMode = True
-    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.AssignedValues = [uvUpdateChngFields, uvUpdateMode, uvLockMode, uvLockPoint, uvLockWait, uvRefreshMode, uvFetchGeneratorsPoint, uvCheckRequired, uvCheckReadOnly, uvCheckUpdatable, uvAutoCommitUpdates]
+    UpdateOptions.LockWait = True
+    UpdateOptions.FetchGeneratorsPoint = gpNone
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
     StoreDefs = True
@@ -386,8 +268,8 @@ object Form1: TForm1
     FieldDefs = <>
     Response = RESTResponse1
     RootElement = 'results'
-    Left = 296
-    Top = 48
+    Left = 304
+    Top = 40
   end
   object DataSource1: TDataSource
     DataSet = FDMemTable1
