@@ -11,6 +11,7 @@ object Form2: TForm2
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object Nome: TLabel
@@ -39,47 +40,13 @@ object Form2: TForm2
     ItemHeight = 13
     TabOrder = 0
   end
-  object BindSourceDB1: TBindSourceDB
-    ScopeMappings = <>
-    Left = 16
-    Top = 64
-  end
-  object BindingsList1: TBindingsList
-    Methods = <>
-    OutputConverters = <>
-    Left = 20
-    Top = 5
-    object LinkPropertyToFieldCaption: TLinkPropertyToField
-      Category = 'Quick Bindings'
-      DataSource = Form1.BindSourceDB1
-      FieldName = 'name'
-      Component = Nome
-      ComponentProperty = 'Caption'
-    end
-    object LinkPropertyToFieldCaption2: TLinkPropertyToField
-      Category = 'Quick Bindings'
-      DataSource = Form1.BindSourceDB1
-      FieldName = 'birth_year'
-      Component = Aniversario
-      ComponentProperty = 'Caption'
-    end
-    object LinkPropertyToFieldCaption3: TLinkPropertyToField
-      Category = 'Quick Bindings'
-      DataSource = Form1.BindSourceDB1
-      FieldName = 'gender'
-      Component = Generos
-      ComponentProperty = 'Caption'
-    end
-    object LinkFillControlToField1: TLinkFillControlToField
-      Category = 'Quick Bindings'
-      Control = Filmes
-      Track = True
-      FillDataSource = Form1.BindSourceDB1
-      FillDisplayFieldName = 'films'
-      AutoFill = True
-      FillExpressions = <>
-      FillHeaderExpressions = <>
-      FillBreakGroups = <>
-    end
+  object Fechar: TButton
+    Left = 8
+    Top = 8
+    Width = 49
+    Height = 25
+    Caption = 'EXIT'
+    TabOrder = 1
+    OnClick = FecharClick
   end
 end

@@ -38,6 +38,10 @@ type
     LinkListControlToField1: TLinkListControlToField;
     Button6: TButton;
     Button7: TButton;
+    DBEditNascimento: TDBEdit;
+    DBEditGenero: TDBEdit;
+    DBEditFilmes: TDBEdit;
+    Fechar: TButton;
     procedure FormCreate(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -45,6 +49,7 @@ type
     procedure ListBox1Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
     procedure Button7Click(Sender: TObject);
+    procedure FecharClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -143,11 +148,39 @@ begin
   end;
 end;
 
+procedure TForm1.FecharClick(Sender: TObject);
+begin
+Close;
+end;
+
 procedure TForm1.FormCreate(Sender: TObject);
+var
+  retorno:bool;
+  valor:string;
 begin
   page := 1;
+  listbox1.Items.Clear;
+
   RESTRequest1.Resource := 'api/people/?page=' +  IntToStr(page);
   RESTRequest1.Execute;
+  retorno:=false;
+  Fdmemtable1. FIRST;
+   repeat
+        While not Fdmemtable1. EOF DO
+        BEGIN
+          valor:=Fdmemtable1.Fields.FieldByName('name').AsString;
+          listbox1.Items.Add(DBEdit1.Text);
+          DBEdit1.Clear;
+          Fdmemtable1.Next;
+        END;
+        try
+          page := page+1;
+          RESTRequest1.Resource := 'api/people/?page=' + IntToStr(page);
+          RESTRequest1.Execute;
+        Except
+          retorno:=true;
+        end;
+   until(retorno=true);
 end;
 
 procedure TForm1.FormShow(Sender: TObject);
@@ -183,13 +216,51 @@ end;
 procedure TForm1.ListBox1Click(Sender: TObject);
 var
   Selected,valor: string;
-  retorno:bool;
+  retorno,test:bool;
 begin
+  DbeditNascimento.Clear;
   Selected := ListBox1.Items[ListBox1.ItemIndex];
-  RESTRequest1.Resource := 'api/people/?page=' +  IntToStr(1);
+  page := 1;
+  RESTRequest1.Resource := 'api/people/?page=' +  IntToStr(page);
+  RESTRequest1.Execute;
+  retorno:=false;
+  While(retorno=false)do
+  begin
+        Fdmemtable1. FIRST;
+        While not ((Fdmemtable1.EOF))DO
+        BEGIN
+          valor:=Fdmemtable1.FieldByName('name').AsString;
+          if(valor=Selected)then
+          begin
+              retorno:=true;
+               break
+          end
+          else
+          begin
+            DBEdit1.Clear;
+            Fdmemtable1.Next;
+          end;
+        END;
+        if(retorno=false)then
+        begin
+          if(page<9)then
+          begin
+            page := page+1;
+            RESTRequest1.Resource := 'api/people/?page=' + IntToStr(page);
+            RESTRequest1.Execute;
+          end
+          else
+            retorno:=true;
+        end;
+  end;
+  Form2 := TForm2.Create(nil);
+  Form2.Show;
+end;
+  {RESTRequest1.Resource := 'api/people/?page=' +  IntToStr(1);
   RESTRequest1.Execute;
   Fdmemtable1. FIRST;
   retorno:=false;
+  Listbox1.ItemIndex;
   While retorno=false DO
         BEGIN
           try
@@ -212,7 +283,6 @@ begin
           end;
         END;
   Form2 := TForm2.Create(nil);
-  Form2.Show;
-end;
+  Form2.Show; }
 
 end.

@@ -2,15 +2,9 @@
 Coordinates=530,250,84,105
 Visible=True
 
-[Aniversario]
-Coordinates=510,120,71,51
-
-[Generos]
-Coordinates=630,210,56,51
-
 [Form3.DataSource1]
 Visible=True
-Coordinates=678,31,111,33
+Coordinates=920,51,111,33
 
 [Form3.FDMemTable1]
 Visible=False
@@ -35,11 +29,11 @@ Coordinates=240,70,127,321
 Coordinates=30,30,131,303
 
 []
-Coordinates=365,53,82,33
+Coordinates=678,31,111,33
 
-[BindingsList1]
-Coordinates=180,340,82,33
+[Diametro]
+Coordinates=630,210,56,51
 
-[BindSourceDB1]
-Coordinates=557,21,99,321
+[Orbita]
+Coordinates=510,120,71,51
 

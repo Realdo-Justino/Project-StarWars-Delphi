@@ -11,82 +11,56 @@ object Form6: TForm6
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object Nome: TLabel
+  object Titulo: TLabel
     Left = 91
     Top = 48
     Width = 3
     Height = 13
   end
-  object Aniversario: TLabel
+  object Episodio: TLabel
     Left = 91
     Top = 88
     Width = 3
     Height = 13
   end
-  object Generos: TLabel
+  object Abertura: TLabel
+    Left = 264
+    Top = 48
+    Width = 9
+    Height = 13
+  end
+  object Ano: TLabel
     Left = 91
-    Top = 128
+    Top = 131
     Width = 3
     Height = 13
   end
-  object Filmes: TListBox
+  object Personagens: TListBox
     Left = 91
-    Top = 136
+    Top = 165
     Width = 166
     Height = 65
     ItemHeight = 13
-    Items.Strings = (
-      'A New Hope'
-      'The Empire Strikes Back'
-      'Return of the Jedi'
-      'The Phantom Menace'
-      'Attack of the Clones'
-      'Revenge of the Sith')
     TabOrder = 0
   end
-  object BindSourceDB1: TBindSourceDB
-    ScopeMappings = <>
-    Left = 16
-    Top = 64
+  object Planetas: TListBox
+    Left = 91
+    Top = 237
+    Width = 166
+    Height = 65
+    ItemHeight = 13
+    TabOrder = 1
   end
-  object BindingsList1: TBindingsList
-    Methods = <>
-    OutputConverters = <>
-    Left = 20
-    Top = 5
-    object LinkPropertyToFieldCaption: TLinkPropertyToField
-      Category = 'Quick Bindings'
-      DataSource = Form1.BindSourceDB1
-      FieldName = 'name'
-      Component = Nome
-      ComponentProperty = 'Caption'
-    end
-    object LinkPropertyToFieldCaption2: TLinkPropertyToField
-      Category = 'Quick Bindings'
-      DataSource = Form1.BindSourceDB1
-      FieldName = 'birth_year'
-      Component = Aniversario
-      ComponentProperty = 'Caption'
-    end
-    object LinkPropertyToFieldCaption3: TLinkPropertyToField
-      Category = 'Quick Bindings'
-      DataSource = Form1.BindSourceDB1
-      FieldName = 'gender'
-      Component = Generos
-      ComponentProperty = 'Caption'
-    end
-    object LinkFillControlToField1: TLinkFillControlToField
-      Category = 'Quick Bindings'
-      Control = Filmes
-      Track = True
-      FillDataSource = Form5.BindSourceDB1
-      FillDisplayFieldName = 'title'
-      AutoFill = True
-      FillExpressions = <>
-      FillHeaderExpressions = <>
-      FillBreakGroups = <>
-    end
+  object Fechar: TButton
+    Left = 8
+    Top = 8
+    Width = 49
+    Height = 25
+    Caption = 'EXIT'
+    TabOrder = 2
+    OnClick = FecharClick
   end
 end

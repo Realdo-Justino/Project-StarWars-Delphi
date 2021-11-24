@@ -11,62 +11,62 @@ object Form4: TForm4
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object PRotacao: TLabel
+    Left = 91
+    Top = 8
+    Width = 3
+    Height = 13
+  end
+  object Orbita: TLabel
     Left = 91
     Top = 48
     Width = 3
     Height = 13
   end
-  object Aniversario: TLabel
+  object Diametro: TLabel
     Left = 91
     Top = 88
     Width = 3
     Height = 13
   end
-  object Generos: TLabel
+  object Clima: TLabel
     Left = 91
-    Top = 128
+    Top = 123
+    Width = 3
+    Height = 13
+  end
+  object Populacao: TLabel
+    Left = 91
+    Top = 163
     Width = 3
     Height = 13
   end
   object Filmes: TListBox
     Left = 91
-    Top = 168
+    Top = 197
     Width = 166
     Height = 65
     ItemHeight = 13
     TabOrder = 0
   end
-  object BindingsList1: TBindingsList
-    Methods = <>
-    OutputConverters = <>
-    Left = 20
-    Top = 5
-    object LinkFillControlToField: TLinkFillControlToField
-      Category = 'Quick Bindings'
-      Control = Filmes
-      Track = False
-      FillDataSource = Form3.BindSourceDB2
-      FillDisplayFieldName = 'name'
-      AutoFill = True
-      FillExpressions = <>
-      FillHeaderExpressions = <>
-      FillBreakGroups = <>
-    end
-    object LinkPropertyToFieldCaption: TLinkPropertyToField
-      Category = 'Quick Bindings'
-      DataSource = BindSourceDB1
-      FieldName = 'rotation_period'
-      Component = PRotacao
-      ComponentProperty = 'Caption'
-    end
+  object Residentes: TListBox
+    Left = 91
+    Top = 269
+    Width = 166
+    Height = 65
+    ItemHeight = 13
+    TabOrder = 1
   end
-  object BindSourceDB1: TBindSourceDB
-    DataSource = Form3.DataSource1
-    ScopeMappings = <>
-    Left = 24
-    Top = 64
+  object Fechar: TButton
+    Left = 8
+    Top = 8
+    Width = 49
+    Height = 25
+    Caption = 'EXIT'
+    TabOrder = 2
+    OnClick = FecharClick
   end
 end

@@ -37,12 +37,21 @@ type
     ListBox1: TListBox;
     LinkListControlToField1: TLinkListControlToField;
     Button6: TButton;
+    DBEditRotacao: TDBEdit;
+    DBEditOrbita: TDBEdit;
+    DBEditDiametro: TDBEdit;
+    DBEditClima: TDBEdit;
+    DBEditPopulacao: TDBEdit;
+    DBEditFilme: TDBEdit;
+    DBEditResidentes: TDBEdit;
+    Fechar: TButton;
     procedure FormCreate(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Edit1Change(Sender: TObject);
     procedure ListBox1Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
+    procedure FecharClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -165,6 +174,11 @@ begin
   end;
 end;
 
+procedure TForm3.FecharClick(Sender: TObject);
+begin
+Close;
+end;
+
 procedure TForm3.FormCreate(Sender: TObject);
 var
   retorno:bool;
@@ -231,31 +245,39 @@ var
   retorno:bool;
 begin
   Selected := ListBox1.Items[ListBox1.ItemIndex];
-  RESTRequest1.Resource := 'api/planets/?page=' +  IntToStr(1);
+  page := 1;
+  RESTRequest1.Resource := 'api/planets/?page=' +  IntToStr(page);
   RESTRequest1.Execute;
-  Fdmemtable1. FIRST;
   retorno:=false;
-  While retorno=false DO
+  While(retorno=false)do
+  begin
+        Fdmemtable1. FIRST;
+        While not ((Fdmemtable1.EOF))DO
         BEGIN
-          try
-            valor:=Fdmemtable1.Fields.FieldByName('name').AsString;
-            DBEdit1.Clear;
-            Fdmemtable1.Next;
-          Except
-            try
-              page := page+1;
-              RESTRequest1.Resource := 'api/planets/?page=' + IntToStr(page);
-              RESTRequest1.Execute;
-            Except
-              retorno:=true;
-            end;
-          end;
+          valor:=Fdmemtable1.FieldByName('name').AsString;
           if(valor=Selected)then
           begin
-            retorno:=true;
-            Fdmemtable1.Prior;
+              retorno:=true;
+               break
+          end
+          else
+          begin
+            DBEdit1.Clear;
+            Fdmemtable1.Next;
           end;
         END;
+        if(retorno=false)then
+        begin
+          if(page<9)then
+          begin
+            page := page+1;
+            RESTRequest1.Resource := 'api/planets/?page=' + IntToStr(page);
+            RESTRequest1.Execute;
+          end
+          else
+            retorno:=true;
+        end;
+  end;
   Form4 := TForm4.Create(nil);
   Form4.Show;
 end;

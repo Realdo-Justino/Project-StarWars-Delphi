@@ -57,9 +57,6 @@ Coordinates=349,241,72,51
 Visible=True
 ExplicitSubNodes=Field.AsString
 
-[DBEdit1]
-Coordinates=331,56,54,33
-
 [ListBox1]
 Coordinates=420,280,84,105
 Visible=True
@@ -118,4 +115,7 @@ Coordinates=603,1,110,69
 
 [Button7]
 Coordinates=121,71,53,51
+
+[DBEdit1]
+Coordinates=331,56,54,33
 

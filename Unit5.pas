@@ -37,12 +37,19 @@ type
     BindSourceDB2: TBindSourceDB;
     ListBox1: TListBox;
     LinkListControlToField1: TLinkListControlToField;
+    DBEditEpisodio: TDBEdit;
+    DBEditAbertura: TDBEdit;
+    DBEditPersonagem: TDBEdit;
+    DBEditplanetas: TDBEdit;
+    DBEditAno: TDBEdit;
+    Fechar: TButton;
     procedure FormCreate(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Edit1Change(Sender: TObject);
     procedure ListBox1Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
+    procedure FecharClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -132,6 +139,11 @@ begin
   end;
 end;
 
+procedure TForm5.FecharClick(Sender: TObject);
+begin
+Close;
+end;
+
 procedure TForm5.FormCreate(Sender: TObject);
 var
   retorno:bool;
@@ -180,23 +192,31 @@ var
   retorno:bool;
 begin
   Selected := ListBox1.Items[ListBox1.ItemIndex];
-  Fdmemtable1. FIRST;
+  RESTRequest1.Resource := 'api/films/';
+  RESTRequest1.Execute;
   retorno:=false;
-  While not retorno=true DO
-  BEGIN
-    try
-      valor:=Fdmemtable1.Fields.FieldByName('title').AsString;
-      DBEdit1.Clear;
-      Fdmemtable1.Next;
-    Except
-      retorno:=true;
-    end;
-    if(valor=Selected)then
-    begin
-      retorno:=true;
-      Fdmemtable1.Prior;
-    end;
-  END;
+  While(retorno=false)do
+  begin
+        Fdmemtable1. FIRST;
+        While not ((Fdmemtable1.EOF))DO
+        BEGIN
+          valor:=Fdmemtable1.FieldByName('title').AsString;
+          if(valor=Selected)then
+          begin
+              retorno:=true;
+               break
+          end
+          else
+          begin
+            DBEdit1.Clear;
+            Fdmemtable1.Next;
+          end;
+        END;
+        if(retorno=false)then
+        begin
+            retorno:=true;
+        end;
+  end;
   Form6 := TForm6.Create(nil);
   Form6.Show;
 end;

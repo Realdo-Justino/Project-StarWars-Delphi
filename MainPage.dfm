@@ -11,6 +11,7 @@ object Form1: TForm1
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -221,6 +222,7 @@ object Form1: TForm1
     Height = 25
     Caption = 'Button6'
     TabOrder = 10
+    Visible = False
     OnClick = Button6Click
   end
   object Button7: TButton
@@ -230,7 +232,47 @@ object Form1: TForm1
     Height = 25
     Caption = 'Button7'
     TabOrder = 11
+    Visible = False
     OnClick = Button7Click
+  end
+  object DBEditNascimento: TDBEdit
+    Left = 328
+    Top = 117
+    Width = 121
+    Height = 21
+    DataField = 'birth_year'
+    DataSource = DataSource1
+    TabOrder = 12
+    Visible = False
+  end
+  object DBEditGenero: TDBEdit
+    Left = 328
+    Top = 171
+    Width = 121
+    Height = 21
+    DataField = 'gender'
+    DataSource = DataSource1
+    TabOrder = 13
+    Visible = False
+  end
+  object DBEditFilmes: TDBEdit
+    Left = 455
+    Top = 117
+    Width = 121
+    Height = 21
+    DataField = 'films'
+    DataSource = DataSource1
+    TabOrder = 14
+    Visible = False
+  end
+  object Fechar: TButton
+    Left = 8
+    Top = 8
+    Width = 49
+    Height = 25
+    Caption = 'EXIT'
+    TabOrder = 15
+    OnClick = FecharClick
   end
   object RESTClient1: TRESTClient
     Accept = 'application/json, text/plain; q=0.9, text/html;q=0.8,'

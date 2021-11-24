@@ -7,13 +7,15 @@ uses
   Unit3 in 'Unit3.pas' {Form3},
   DetalhePlanetasForm in 'DetalhePlanetasForm.pas' {Form4},
   Unit5 in 'Unit5.pas' {Form5},
-  DetalheFilmesForm in 'DetalheFilmesForm.pas' {Form6};
+  DetalheFilmesForm in 'DetalheFilmesForm.pas' {Form6},
+  Unit7 in 'Unit7.pas' {Form7};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm7, Form7);
   Application.CreateForm(TForm1, Form1);
   Application.CreateForm(TForm2, Form2);
   Application.CreateForm(TForm3, Form3);

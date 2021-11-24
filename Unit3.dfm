@@ -93,8 +93,8 @@ object Form3: TForm3
     OnClick = Button2Click
   end
   object DBEdit1: TDBEdit
-    Left = 328
-    Top = 144
+    Left = 288
+    Top = 98
     Width = 121
     Height = 21
     DataField = 'name'
@@ -111,7 +111,6 @@ object Form3: TForm3
     ItemHeight = 13
     TabOrder = 9
     OnClick = ListBox1Click
-    ExplicitTop = 352
   end
   object Button6: TButton
     Left = 392
@@ -122,6 +121,85 @@ object Form3: TForm3
     TabOrder = 10
     Visible = False
     OnClick = Button6Click
+  end
+  object DBEditRotacao: TDBEdit
+    Left = 288
+    Top = 125
+    Width = 121
+    Height = 21
+    DataField = 'rotation_period'
+    DataSource = DataSource1
+    TabOrder = 11
+    Visible = False
+  end
+  object DBEditOrbita: TDBEdit
+    Left = 288
+    Top = 152
+    Width = 121
+    Height = 21
+    DataField = 'orbital_period'
+    DataSource = DataSource1
+    TabOrder = 12
+    Visible = False
+  end
+  object DBEditDiametro: TDBEdit
+    Left = 288
+    Top = 179
+    Width = 121
+    Height = 21
+    DataField = 'diameter'
+    DataSource = DataSource1
+    TabOrder = 13
+    Visible = False
+  end
+  object DBEditClima: TDBEdit
+    Left = 425
+    Top = 98
+    Width = 121
+    Height = 21
+    DataField = 'climate'
+    DataSource = DataSource1
+    TabOrder = 14
+    Visible = False
+  end
+  object DBEditPopulacao: TDBEdit
+    Left = 425
+    Top = 125
+    Width = 121
+    Height = 21
+    DataField = 'population'
+    DataSource = DataSource1
+    TabOrder = 15
+    Visible = False
+  end
+  object DBEditFilme: TDBEdit
+    Left = 425
+    Top = 152
+    Width = 121
+    Height = 21
+    DataField = 'films'
+    DataSource = DataSource1
+    TabOrder = 16
+    Visible = False
+  end
+  object DBEditResidentes: TDBEdit
+    Left = 425
+    Top = 179
+    Width = 121
+    Height = 21
+    DataField = 'residents'
+    DataSource = DataSource1
+    TabOrder = 17
+    Visible = False
+  end
+  object Fechar: TButton
+    Left = 8
+    Top = 8
+    Width = 49
+    Height = 25
+    Caption = 'EXIT'
+    TabOrder = 18
+    OnClick = FecharClick
   end
   object RESTClient1: TRESTClient
     Accept = 'application/json, text/plain; q=0.9, text/html;q=0.8,'
@@ -141,8 +219,8 @@ object Form3: TForm3
   end
   object RESTResponse1: TRESTResponse
     ContentType = 'application/json'
-    Left = 424
-    Top = 56
+    Left = 416
+    Top = 40
   end
   object BindingsList1: TBindingsList
     Methods = <>
@@ -274,7 +352,7 @@ object Form3: TForm3
   object DataSource1: TDataSource
     DataSet = FDMemTable1
     Left = 496
-    Top = 64
+    Top = 40
   end
   object BindSourceDB1: TBindSourceDB
     DataSource = DataSource1

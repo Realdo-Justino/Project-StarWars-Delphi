@@ -1,22 +1,4 @@
-﻿[Nome]
-Coordinates=421,186,42,51
-
-[BindSourceDB1]
-Coordinates=10,454,92,51
-
-[Filmes]
-Coordinates=395,304,84,105
-
-[Generos]
-Coordinates=413,68,56,69
-
-[Aniversario]
-Coordinates=10,186,71,51
-
-[BindingsList1]
-Coordinates=66,429,82,33
-
-[Form5.DataSource1]
+﻿[Form5.DataSource1]
 Visible=False
 Coordinates=311,1,111,33
 
@@ -39,6 +21,6 @@ Coordinates=311,428,131,303
 [Form5.RESTClient1]
 Coordinates=27,358,110,69
 
-[Form1.BindSourceDB1]
-Coordinates=20,30,127,339
+[]
+Coordinates=421,186,42,51
 
